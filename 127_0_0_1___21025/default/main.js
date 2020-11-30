@@ -1,15 +1,12 @@
-var roles = require('role.roles');
-var spawner = require('role.spawner');
+var spawner = require('creep.spawner');
+var storage = require('creep.storage');
 
 function loop() {
     spawner.run();
-    for (var creep in Game.creeps) {
-        roles.run(creep);
-    }
+    storage.all().forEach(creep => {
+        if (creep != undefined)
+          creep.run()
+    });
 }
 
-function getMainSpawn() {
-    return Game.spawns['main'];
-}
-
-module.exports = { loop, getMainSpawn }
+module.exports = { loop }
